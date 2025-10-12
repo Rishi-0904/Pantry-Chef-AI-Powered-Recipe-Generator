@@ -1,20 +1,52 @@
 import { Routes, Route } from 'react-router-dom';
-import { DashboardPage } from './pages/DashboardPage';
-import { LoginPage } from './pages/LoginPage';
 import { ProtectedRoute } from './routes/ProtectedRoute';
+import { HomePage } from './pages/HomePage';
+import { DashboardPage } from './pages/DashboardPage';
+import { PantryPage } from './pages/PantryPage';
+import { PlannerPage } from './pages/PlannerPage';
+import { CommunityPage } from './pages/CommunityPage';
+import { LoginPage } from './pages/LoginPage';
+import { AppLayout } from './layouts/AppLayout';
 
 function App() {
   return (
     <Routes>
+      <Route element={<AppLayout />}>
+        <Route index element={<HomePage />} />
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="pantry"
+          element={
+            <ProtectedRoute>
+              <PantryPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="planner"
+          element={
+            <ProtectedRoute>
+              <PlannerPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="community"
+          element={
+            <ProtectedRoute>
+              <CommunityPage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
       <Route path="/login" element={<LoginPage />} />
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute>
-            <DashboardPage />
-          </ProtectedRoute>
-        }
-      />
     </Routes>
   );
 }

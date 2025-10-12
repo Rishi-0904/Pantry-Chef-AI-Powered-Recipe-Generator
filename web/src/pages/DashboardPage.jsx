@@ -4,6 +4,7 @@ import { IngredientList } from '../components/ingredients/IngredientList';
 import { RecipeActions } from '../components/recipes/RecipeActions';
 import { RecipeList } from '../components/recipes/RecipeList';
 import { WeeklyPlan } from '../components/recipes/WeeklyPlan';
+import { UserDashboard } from '../components/dashboard/UserDashboard';
 import { useRecipeGenerator } from '../hooks/useRecipeGenerator';
 import { useAuthContext } from '../contexts/AuthContext';
 
@@ -43,6 +44,9 @@ export function DashboardPage() {
           </div>
 
           <div className="hidden items-center gap-8 text-sm font-medium text-ink/80 lg:flex">
+            <a className="transition hover:text-brand-dark" href="#overview">
+              Dashboard
+            </a>
             <a className="transition hover:text-brand-dark" href="#pantry">
               Pantry
             </a>
@@ -139,6 +143,15 @@ export function DashboardPage() {
       </div>
 
       <main className="relative z-10 max-w-6xl mx-auto mt-16 space-y-16 px-4 sm:px-6">
+        <section id="overview" className="space-y-8">
+          <UserDashboard
+            user={user}
+            ingredients={ingredients}
+            recipes={recipes}
+            plannedMeals={plannedMeals}
+          />
+        </section>
+
         <section id="pantry" className="glass-panel space-y-8 rounded-3xl p-8">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
