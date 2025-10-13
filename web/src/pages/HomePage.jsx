@@ -26,8 +26,8 @@ export function HomePage() {
               <Link className="pill-button px-8 py-3" to={user ? '/dashboard' : '/login'}>
                 {user ? 'Go to dashboard' : 'Sign in to start'}
               </Link>
-              <Link className="pill-button bg-brand/15 px-6 py-3 text-brand" to="/community">
-                Explore community plates
+              <Link className="pill-button bg-brand/15 px-6 py-3 text-brand" to="/storage">
+                Explore ingredient storage
               </Link>
             </div>
           </div>

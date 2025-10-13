@@ -3,6 +3,7 @@ import { ProtectedRoute } from './routes/ProtectedRoute';
 import { HomePage } from './pages/HomePage';
 import { DashboardPage } from './pages/DashboardPage';
 import { PantryPage } from './pages/PantryPage';
+import { StoragePage } from './pages/StoragePage';
 import { PlannerPage } from './pages/PlannerPage';
 import { CommunityPage } from './pages/CommunityPage';
 import { LoginPage } from './pages/LoginPage';
@@ -26,6 +27,14 @@ function App() {
           element={
             <ProtectedRoute>
               <PantryPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="storage"
+          element={
+            <ProtectedRoute>
+              <StoragePage />
             </ProtectedRoute>
           }
         />
