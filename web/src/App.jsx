@@ -6,6 +6,7 @@ import { PantryPage } from './pages/PantryPage';
 import { StoragePage } from './pages/StoragePage';
 import { PlannerPage } from './pages/PlannerPage';
 import { CommunityPage } from './pages/CommunityPage';
+import { LearnPage } from './pages/LearnPage';
 import { LoginPage } from './pages/LoginPage';
 import { AppLayout } from './layouts/AppLayout';
 
@@ -51,6 +52,14 @@ function App() {
           element={
             <ProtectedRoute>
               <CommunityPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="learn"
+          element={
+            <ProtectedRoute>
+              <LearnPage />
             </ProtectedRoute>
           }
         />

@@ -9,6 +9,32 @@ const MEALS = ['breakfast', 'lunch', 'dinner'];
 
 const fallbackSteps = ['Combine ingredients.', 'Cook until ready.', 'Serve and enjoy.'];
 
+function coerceSteps(recipe) {
+  if (Array.isArray(recipe.steps) && recipe.steps.length) {
+    return recipe.steps;
+  }
+  if (Array.isArray(recipe.instructions) && recipe.instructions.length) {
+    return recipe.instructions;
+  }
+  if (typeof recipe.instructions === 'string' && recipe.instructions.trim()) {
+    return recipe.instructions.split(/\n+/).map((step) => step.trim()).filter(Boolean);
+  }
+  return fallbackSteps;
+}
+
+function parseTimeMinutes(value) {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value;
+  }
+  if (typeof value === 'string') {
+    const match = value.match(/(\d+(?:\.\d+)?)/);
+    if (match) {
+      return Math.round(Number(match[1]));
+    }
+  }
+  return undefined;
+}
+
 const createId = () => {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
     return crypto.randomUUID();
@@ -20,7 +46,7 @@ function ensureRecipeShape(recipe = {}, index) {
   const ingredients = Array.isArray(recipe.ingredients) && recipe.ingredients.length
     ? recipe.ingredients
     : ['Your selected ingredients'];
-  const steps = Array.isArray(recipe.steps) && recipe.steps.length ? recipe.steps : fallbackSteps;
+  const steps = coerceSteps(recipe);
 
   return {
     id: recipe.id || createId(),
@@ -28,8 +54,8 @@ function ensureRecipeShape(recipe = {}, index) {
     description: recipe.description || 'A delicious meal idea generated from your pantry items.',
     ingredients,
     steps,
-    prepTimeMinutes: recipe.prepTimeMinutes,
-    cookTimeMinutes: recipe.cookTimeMinutes,
+    prepTimeMinutes: parseTimeMinutes(recipe.prepTimeMinutes ?? recipe.prepTime),
+    cookTimeMinutes: parseTimeMinutes(recipe.cookTimeMinutes ?? recipe.cookTime),
     servings: recipe.servings
   };
 }

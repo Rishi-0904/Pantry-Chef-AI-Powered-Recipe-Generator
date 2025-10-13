@@ -49,6 +49,9 @@ export function AppLayout() {
               <NavLink className={({ isActive }) => linkClasses(isActive)} to="/community">
                 Community
               </NavLink>
+              <NavLink className={({ isActive }) => linkClasses(isActive)} to="/learn">
+                Learn
+              </NavLink>
             </nav>
 
             <div className="flex items-center gap-3">

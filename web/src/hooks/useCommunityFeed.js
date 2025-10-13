@@ -1,54 +1,97 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from 'firebase/firestore';
 import { useAuthContext } from '../contexts/AuthContext';
+import { db } from '../services/firebaseApp';
+import { uploadImageToCloudinary } from '../services/cloudinary';
 
-const samplePosts = [
-  {
-    id: 'sample-1',
-    title: 'Summer Herb Gnocchi',
-    description: 'Pan-seared gnocchi with blistered tomatoes, lemon zest and basil oil.',
-    mediaUrl: 'https://images.unsplash.com/photo-1514516430032-7f38c72b72ff?auto=format&fit=crop&w=900&q=80',
-    author: {
-      id: 'auth-1',
-      name: 'Elio Garcia',
-      avatar: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=facearea&w=120&h=120&q=80'
-    },
-    likes: 142,
-    tags: ['gnocchi', 'vegetarian', '30-minutes']
-  }
-];
+const COMMUNITY_COLLECTION = 'communityPosts';
 
 export function useCommunityFeed() {
   const { user } = useAuthContext();
-  const [posts, setPosts] = useState(samplePosts);
+  const [posts, setPosts] = useState([]);
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState(null);
 
-  const sharePost = async (payload) => {
-    if (!user) {
-      setError('You need to sign in to share');
-      return;
-    }
+  useEffect(() => {
+    const communityRef = collection(db, COMMUNITY_COLLECTION);
+    const communityQuery = query(communityRef, orderBy('createdAt', 'desc'));
 
-    setCreating(true);
-    setError(null);
+    const unsubscribe = onSnapshot(
+      communityQuery,
+      (snapshot) => {
+        const nextPosts = snapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            title: data.title,
+            description: data.description,
+            mediaUrl: data.mediaUrl,
+            cloudinaryId: data.cloudinaryId,
+            likes: data.likes ?? 0,
+            tags: Array.isArray(data.tags) ? data.tags : [],
+            createdAt: data.createdAt?.toMillis?.() ?? Date.now(),
+            author: {
+              id: data.author?.id,
+              name: data.author?.name,
+              avatar: data.author?.avatar
+            }
+          };
+        });
+        setPosts(nextPosts);
+      },
+      (subscriptionError) => {
+        setError(subscriptionError.message ?? 'Unable to load community posts.');
+      }
+    );
 
-    try {
-      const newPost = {
-        id: `local-${Date.now()}`,
-        ...payload,
-        author: {
-          id: user.uid,
-          name: user.displayName ?? 'Pantry Chef',
-          avatar: user.photoURL ?? 'https://images.unsplash.com/photo-1514516430032-7f38c72b72ff?auto=format&fit=facearea&w=120&h=120&q=80'
+    return () => unsubscribe();
+  }, []);
+
+  const sharePost = useMemo(
+    () =>
+      async ({ title, description, tags, imageFile }) => {
+        if (!user) {
+          setError('You need to sign in to share');
+          return;
         }
-      };
-      setPosts((previous) => [newPost, ...previous]);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unable to share post.');
-    } finally {
-      setCreating(false);
-    }
-  };
+
+        if (!imageFile) {
+          setError('An image is required to share a creation.');
+          return;
+        }
+
+        setCreating(true);
+        setError(null);
+
+        try {
+          const uploadResult = await uploadImageToCloudinary(imageFile);
+
+          const newPost = {
+            title,
+            description,
+            mediaUrl: uploadResult.url,
+            cloudinaryId: uploadResult.publicId,
+            likes: 0,
+            tags: Array.isArray(tags) ? tags : [],
+            author: {
+              id: user.uid,
+              name: user.displayName ?? 'Pantry Chef',
+              avatar: user.photoURL ?? 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=facearea&w=120&h=120&q=80'
+            },
+            createdAt: serverTimestamp()
+          };
+
+          await addDoc(collection(db, COMMUNITY_COLLECTION), newPost);
+        } catch (err) {
+          const message = err instanceof Error ? err.message : 'Unable to share post.';
+          setError(message);
+          throw err;
+        } finally {
+          setCreating(false);
+        }
+      },
+    [user]
+  );
 
   return {
     posts,
