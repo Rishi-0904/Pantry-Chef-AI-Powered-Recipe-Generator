@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
 import { useRecipeContext } from '../contexts/RecipeContext';
+import { CartModal } from '../components/cart/CartModal';
 
 const linkClasses = (isActive) => `transition hover:text-brand-dark ${isActive ? 'text-brand-dark' : ''}`;
 
@@ -8,6 +10,7 @@ export function AppLayout() {
   const { user, signOutUser, loading } = useAuthContext();
   const { cart } = useRecipeContext();
   const navigate = useNavigate();
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const cartTotal = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -59,14 +62,17 @@ export function AppLayout() {
             </nav>
 
             <div className="flex items-center gap-3">
-              <NavLink to="/pantry" className="relative mr-4">
+              <button 
+                onClick={() => setIsCartOpen(true)}
+                className="relative mr-4 p-2 hover:bg-white/20 rounded-full transition-all duration-200 hover:scale-110"
+              >
                 <span className="text-2xl">🛒</span>
                 {cartTotal > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-bounce">
                     {cartTotal}
                   </span>
                 )}
-              </NavLink>
+              </button>
               {user && !loading ? (
                 <div className="hidden items-center gap-3 rounded-full bg-white/70 px-4 py-2 shadow-sm backdrop-blur lg:flex">
                   {user.photoURL ? (
@@ -95,6 +101,8 @@ export function AppLayout() {
           <Outlet />
         </main>
       </div>
+      
+      <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
 }

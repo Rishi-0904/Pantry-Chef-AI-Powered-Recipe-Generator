@@ -1,12 +1,25 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IngredientInput } from '../components/ingredients/IngredientInput';
+import { AnimatedIngredientCard } from '../components/ingredients/AnimatedIngredientCard';
 import { RemoveConfirmationModal } from '../components/ingredients/RemoveConfirmationModal';
 import { useRecipeContext } from '../contexts/RecipeContext';
 import { useIngredientImages } from '../hooks/useIngredientImages';
 
 export function PantryPage() {
-  const { pantryItems, catalogItems, cart, addIngredient, addToCart, updateCartQuantity, removeFromCart, syncCartToPantry, confirmRemoval, generateRecipes } = useRecipeContext();
+  const {
+    pantryItems,
+    catalogItems,
+    cart,
+    addIngredient,
+    addToCart,
+    updateCartQuantity,
+    removeFromCart,
+    syncCartToPantry,
+    clearCart,
+    confirmRemoval,
+    generateRecipes
+  } = useRecipeContext();
   const navigate = useNavigate();
   const [isFridgeOpen, setIsFridgeOpen] = useState(false);
   const [removingItem, setRemovingItem] = useState(null);
@@ -37,8 +50,21 @@ export function PantryPage() {
   };
 
   const handleProceedToKitchen = () => {
-    syncCartToPantry();
-    navigate('/kitchen', { state: { cartItems: cart } });
+    if (!cart.length) {
+      setToastMessage('Add items to your cart before proceeding.');
+      setTimeout(() => setToastMessage(''), 2000);
+      return;
+    }
+
+    const stagedItems = syncCartToPantry();
+    if (!stagedItems.length) {
+      setToastMessage('Unable to stage cart items. Try again.');
+      setTimeout(() => setToastMessage(''), 2000);
+      return;
+    }
+
+    clearCart();
+    navigate('/kitchen');
   };
 
   const cartTotal = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -82,41 +108,32 @@ export function PantryPage() {
           <div className="grid gap-7 sm:grid-cols-2 xl:grid-cols-3">
             {pantryItems.length ? (
               pantryItems.map((item) => {
-                const imageSrc = imageMap[item.name] || '';
+                const imageSrc = imageMap[item.name] || `https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&h=200&fit=crop&crop=center`;
+                const isInCart = cart.some(cartItem => cartItem.id === item.id);
                 return (
-                  <article key={item.id} className="ingredient-card">
-                    <div className="ingredient-card__image">
-                      <img src={imageSrc} alt={item.name} loading="lazy" />
-                    </div>
-                    <div className="ingredient-card__body">
-                      <div className="space-y-1">
-                        <p className="text-lg font-semibold text-ink">{item.name}</p>
-                        <p className="text-xs uppercase tracking-[0.3em] text-brand/80">Qty: {item.quantity}</p>
-                      </div>
-                      <div className="flex gap-2">
-                        <button
-                          type="button"
-                          className="pill-button bg-green-100 text-green-700 px-3 py-1 text-sm"
-                          onClick={() => handleAddToCart(item.id)}
-                        >
-                          Add to Cart
-                        </button>
-                        <button
-                          type="button"
-                          className="pill-button bg-red-100 text-red-700 px-3 py-1 text-sm"
-                          onClick={() => handleRemoveClick(item)}
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    </div>
-                  </article>
+                  <AnimatedIngredientCard
+                    key={item.id}
+                    item={item}
+                    imageSrc={imageSrc}
+                    onAddToCart={handleAddToCart}
+                    onRemove={handleRemoveClick}
+                    isInCart={isInCart}
+                  />
                 );
               })
             ) : (
-              <p className="rounded-3xl bg-white/80 px-6 py-10 text-center text-sm text-ink/60 col-span-full">
-                Your fridge shelves are empty. Add ingredients above to start stocking your pantry.
-              </p>
+              <div className="col-span-full text-center py-12">
+                <div className="animate-bounce mb-4">
+                  <span className="text-6xl">🥕</span>
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">Your pantry is empty</h3>
+                <p className="text-gray-500 mb-6">Add some fresh ingredients to get started with cooking</p>
+                <div className="flex justify-center">
+                  <div className="animate-pulse bg-brand/10 text-brand px-4 py-2 rounded-full text-sm">
+                    ✨ Start by adding ingredients above
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         </div>

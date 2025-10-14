@@ -28,6 +28,7 @@ export function RecipeProvider({ children }) {
   const [catalogItems, setCatalogItems] = useState(DEFAULT_CATALOG_ITEMS);
   const [pantryItems, setPantryItems] = useState([]); // array of { id, name, quantity, imageUrl }
   const [cart, setCart] = useState([]); // array of { id, name, quantity, imageUrl }
+  const [kitchenItems, setKitchenItems] = useState([]); // array of cart items staged for kitchen
   const {
     recipes,
     plannedMeals,
@@ -87,17 +88,14 @@ export function RecipeProvider({ children }) {
   }, []);
 
   const syncCartToPantry = useCallback(() => {
-    setPantryItems((prev) => 
-      prev.map(p => {
-        const cartItem = cart.find(c => c.id === p.id);
-        if (cartItem) {
-          return { ...p, quantity: Math.max(0, p.quantity - cartItem.quantity) };
-        }
-        return p;
-      }).filter(p => p.quantity > 0)
-    );
-    setCart([]);
+    const snapshot = cart.map((item) => ({ ...item }));
+    setKitchenItems(snapshot);
+    return snapshot;
   }, [cart]);
+
+  const clearCart = useCallback(() => {
+    setCart([]);
+  }, []);
 
   const confirmRemoval = useCallback((id, reason) => {
     setPantryItems((prev) => prev.filter(p => p.id !== id));
@@ -120,6 +118,7 @@ export function RecipeProvider({ children }) {
       catalogItems,
       pantryItems,
       cart,
+      kitchenItems,
       ingredients, // backward compatibility
       addIngredient,
       removeIngredient,
@@ -128,6 +127,7 @@ export function RecipeProvider({ children }) {
       updateCartQuantity,
       removeFromCart,
       syncCartToPantry,
+      clearCart,
       confirmRemoval,
       recipes,
       plannedMeals,
@@ -141,6 +141,7 @@ export function RecipeProvider({ children }) {
       catalogItems,
       pantryItems,
       cart,
+      kitchenItems,
       ingredients,
       addIngredient,
       removeIngredient,
@@ -149,6 +150,7 @@ export function RecipeProvider({ children }) {
       updateCartQuantity,
       removeFromCart,
       syncCartToPantry,
+      clearCart,
       confirmRemoval,
       recipes,
       plannedMeals,
