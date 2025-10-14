@@ -117,4 +117,10 @@ Expose your AI integration via `functions/src/api/` and ensure you export callab
 4. Push and open a pull request.
 
 ## License
-Specify a license for the project (e.g. MIT) or remove this section once decided.
+MIT License - see [LICENSE](LICENSE) file for details.
+
+---
+
+**Made with passion for cooking and beautiful code**
+
+*Transform your ingredients into culinary masterpieces with the power of AI and delightful user experience.*
