@@ -13,16 +13,47 @@ const cohere = new CohereClient({
   token: functions.config().cohere.key,
 });
 
-// --- Deterministic Recipe Generation Helpers ---
-const TASTING_NOTES = ["zesty", "velvety", "garden", "ember", "citrus", "roasted", "herb", "sunny"];
-const COOKING_METHODS = ["bake", "roast", "sear", "grill", "braise", "steam", "stir-fry", "toast"];
+// --- Enhanced Recipe Generation Helpers ---
+const TASTING_NOTES = ["zesty", "velvety", "garden", "ember", "citrus", "roasted", "herb", "sunny", "smoky", "creamy", "spicy", "tangy"];
+const COOKING_METHODS = ["bake", "roast", "sear", "grill", "braise", "steam", "stir-fry", "toast", "sauté", "poach", "caramelize", "char"];
+const CUISINE_STYLES = ["Mediterranean", "Asian-inspired", "Comfort", "Fusion", "Rustic", "Modern", "Traditional", "Gourmet"];
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const MEALS = ["breakfast", "lunch", "dinner"];
-const FALLBACK_STEPS = [
-  "Prep all ingredients and season generously.",
-  "Cook using your preferred heat level until fragrant and tender.",
-  "Plate with fresh herbs or a splash of citrus and enjoy."
-];
+
+const COOKING_TECHNIQUES = {
+  "tomato": ["roast", "sauté", "braise", "grill"],
+  "onion": ["caramelize", "sauté", "roast", "grill"],
+  "garlic": ["roast", "sauté", "confit", "char"],
+  "chicken": ["roast", "grill", "sear", "braise"],
+  "rice": ["steam", "toast", "stir-fry", "bake"],
+  "default": ["sauté", "roast", "steam", "grill"]
+};
+
+const INGREDIENT_PAIRINGS = {
+  "tomato": ["basil", "garlic", "onion", "cheese"],
+  "chicken": ["herbs", "lemon", "garlic", "onion"],
+  "rice": ["soy sauce", "ginger", "scallions", "sesame"],
+  "pasta": ["garlic", "herbs", "cheese", "olive oil"],
+  "default": ["salt", "pepper", "herbs", "olive oil"]
+};
+
+const ENHANCED_STEPS = {
+  prep: [
+    "Gather all ingredients and prep your workspace for efficient cooking.",
+    "Wash, chop, and measure all ingredients according to recipe specifications.",
+    "Preheat your cooking surfaces and season ingredients generously."
+  ],
+  cooking: [
+    "Heat your pan to the perfect temperature and add ingredients in the right order.",
+    "Cook with attention to color, aroma, and texture changes.",
+    "Adjust heat as needed and taste frequently for perfect seasoning."
+  ],
+  finishing: [
+    "Add final seasonings and fresh herbs for brightness.",
+    "Plate with care, considering color and texture contrast.",
+    "Garnish thoughtfully and serve immediately for best results."
+  ]
+};
 
 const createId = () => randomUUID();
 const capitalize = (value = "") => value.charAt(0).toUpperCase() + value.slice(1);

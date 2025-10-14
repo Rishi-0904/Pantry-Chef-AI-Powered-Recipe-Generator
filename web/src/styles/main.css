@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './animations.css';
+
 @layer base {
   body {
     @apply min-h-screen bg-gradient-to-br from-clay via-white to-orange-50 text-ink font-body antialiased;
