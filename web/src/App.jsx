@@ -9,6 +9,7 @@ import { CommunityPage } from './pages/CommunityPage';
 import { LearnPage } from './pages/LearnPage';
 import { LoginPage } from './pages/LoginPage';
 import { AppLayout } from './layouts/AppLayout';
+import { NotificationProvider } from './components/ui/NotificationSystem';
 
 function App() {
   return (

@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { AnimatedStats } from './AnimatedStats';
 
 const TOTAL_MEAL_SLOTS = 21;
 
@@ -113,15 +114,7 @@ export function UserDashboard({ user, ingredients, recipes, plannedMeals }) {
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-4">
-        {stats.map((item) => (
-          <div key={item.id} className={`glass-panel rounded-3xl border border-white/50 bg-gradient-to-br ${item.accent} p-6 shadow-sm`}>
-            <p className="text-xs uppercase tracking-[0.35em] text-ink/50">{item.label}</p>
-            <p className="mt-4 text-4xl font-semibold text-ink">{item.value}</p>
-            <p className="mt-3 text-xs text-ink/60">{item.sublabel}</p>
-          </div>
-        ))}
-      </div>
+      <AnimatedStats stats={stats} />
 
       <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
         <div className="glass-panel rounded-3xl p-6">

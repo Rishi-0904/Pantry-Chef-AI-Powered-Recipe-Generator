@@ -290,7 +290,20 @@
   }
 }
 
+@keyframes shrink {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
 .animate-checkmark {
   stroke-dasharray: 100;
   animation: checkmark 0.8s ease-out forwards;
+}
+
+.animate-shrink {
+  animation: shrink linear forwards;
 }
