@@ -1,16 +1,25 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { IngredientInput } from '../components/ingredients/IngredientInput';
 import { RecipeActions } from '../components/recipes/RecipeActions';
 import { useRecipeContext } from '../contexts/RecipeContext';
 
-export function StoragePage() {
-  const { ingredients, addIngredient, removeIngredient, clearIngredients, generateRecipes, isLoading } = useRecipeContext();
+export function KitchenPage() {
+  const { ingredients, addIngredient, removeIngredient, clearIngredients, generateRecipes, isLoading, cart } = useRecipeContext();
+  const location = useLocation();
   const [selected, setSelected] = useState([]);
 
+  // Auto-select cart items from navigation state, otherwise use pantry
   useEffect(() => {
-    setSelected((prev) => prev.filter((item) => ingredients.includes(item)));
-  }, [ingredients]);
+    const cartItemsFromState = location.state?.cartItems;
+    if (cartItemsFromState && cartItemsFromState.length > 0) {
+      setSelected(cartItemsFromState.map(item => item.name));
+    } else if (cart.length > 0) {
+      setSelected(cart.map(item => item.name));
+    } else {
+      setSelected(ingredients);
+    }
+  }, [location.state, cart, ingredients]);
 
   const selectableIngredients = useMemo(() => ingredients.map((item) => ({ id: item, label: item })), [ingredients]);
 
@@ -19,7 +28,7 @@ export function StoragePage() {
   };
 
   const selectedSummary = selected.length
-    ? `${selected.length} ingredient${selected.length > 1 ? 's' : ''} ready to pair`
+    ? `${selected.length} ingredient${selected.length > 1 ? 's' : ''} ready to cook`
     : 'Select ingredients you want to cook together';
 
   return (
@@ -27,11 +36,10 @@ export function StoragePage() {
       <section className="glass-panel space-y-6 rounded-3xl p-8">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="section-heading">Ingredient storage</p>
-            <h2 className="text-3xl font-semibold text-ink">Organise items for your next meal</h2>
+            <p className="section-heading">Kitchen</p>
+            <h2 className="text-3xl font-semibold text-ink">Cook with your cart</h2>
             <p className="mt-2 max-w-2xl text-sm text-ink/70">
-              Add every ingredient you currently own, then select the ones you want to cook together. Pantry Chef will suggest dishes
-              that showcase those flavours.
+              Your cart ingredients are pre-selected. Add or remove items from your pantry to create the perfect recipe.
             </p>
           </div>
           <div className="flex gap-3">
@@ -41,10 +49,10 @@ export function StoragePage() {
               onClick={clearIngredients}
               disabled={!ingredients.length}
             >
-              Clear storage
+              Clear kitchen
             </button>
             <Link className="pill-button px-5 py-2 text-[11px]" to="/pantry">
-              View pantry list
+              Back to pantry
             </Link>
           </div>
         </div>
@@ -67,7 +75,7 @@ export function StoragePage() {
                   <span className="capitalize">{ingredient.label}</span>
                   <span className="flex items-center gap-2">
                     <span className="rounded-full bg-brand/15 px-3 py-1 text-xs font-semibold text-brand">
-                      {isSelected ? 'Selected' : 'Tap to pair'}
+                      {isSelected ? 'Selected' : 'Tap to cook'}
                     </span>
                     <button
                       type="button"
@@ -85,14 +93,14 @@ export function StoragePage() {
             })
           ) : (
             <p className="rounded-2xl bg-white/70 px-4 py-5 text-sm text-ink/60">
-              Add a few items above to start building your storage list.
+              Add a few items to your pantry first to start cooking.
             </p>
           )}
         </div>
 
         <div className="flex flex-col gap-4 rounded-3xl bg-white/70 p-6 shadow-sm backdrop-blur sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-brand/70">Ingredient pairings</p>
+            <p className="text-xs uppercase tracking-[0.35em] text-brand/70">Cooking session</p>
             <p className="text-sm text-ink/70">{selectedSummary}</p>
           </div>
           <RecipeActions

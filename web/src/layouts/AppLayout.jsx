@@ -1,11 +1,15 @@
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
+import { useRecipeContext } from '../contexts/RecipeContext';
 
 const linkClasses = (isActive) => `transition hover:text-brand-dark ${isActive ? 'text-brand-dark' : ''}`;
 
 export function AppLayout() {
   const { user, signOutUser, loading } = useAuthContext();
+  const { cart } = useRecipeContext();
   const navigate = useNavigate();
+
+  const cartTotal = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const handleSignOut = async () => {
     await signOutUser();
@@ -40,8 +44,8 @@ export function AppLayout() {
               <NavLink className={({ isActive }) => linkClasses(isActive)} to="/pantry">
                 Pantry
               </NavLink>
-              <NavLink className={({ isActive }) => linkClasses(isActive)} to="/storage">
-                Ingredient storage
+              <NavLink className={({ isActive }) => linkClasses(isActive)} to="/kitchen">
+                Kitchen
               </NavLink>
               <NavLink className={({ isActive }) => linkClasses(isActive)} to="/planner">
                 Planner
@@ -55,6 +59,14 @@ export function AppLayout() {
             </nav>
 
             <div className="flex items-center gap-3">
+              <NavLink to="/pantry" className="relative mr-4">
+                <span className="text-2xl">🛒</span>
+                {cartTotal > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {cartTotal}
+                  </span>
+                )}
+              </NavLink>
               {user && !loading ? (
                 <div className="hidden items-center gap-3 rounded-full bg-white/70 px-4 py-2 shadow-sm backdrop-blur lg:flex">
                   {user.photoURL ? (

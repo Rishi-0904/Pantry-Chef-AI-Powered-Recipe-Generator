@@ -3,7 +3,7 @@ import { ProtectedRoute } from './routes/ProtectedRoute';
 import { HomePage } from './pages/HomePage';
 import { DashboardPage } from './pages/DashboardPage';
 import { PantryPage } from './pages/PantryPage';
-import { StoragePage } from './pages/StoragePage';
+import { KitchenPage } from './pages/KitchenPage';
 import { PlannerPage } from './pages/PlannerPage';
 import { CommunityPage } from './pages/CommunityPage';
 import { LearnPage } from './pages/LearnPage';
@@ -32,10 +32,10 @@ function App() {
           }
         />
         <Route
-          path="storage"
+          path="kitchen"
           element={
             <ProtectedRoute>
-              <StoragePage />
+              <KitchenPage />
             </ProtectedRoute>
           }
         />

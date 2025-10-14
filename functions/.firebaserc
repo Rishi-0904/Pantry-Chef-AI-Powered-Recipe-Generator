@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "ringtable-cd764"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }
