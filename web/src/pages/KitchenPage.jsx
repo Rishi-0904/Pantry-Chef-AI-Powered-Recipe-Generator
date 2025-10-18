@@ -102,16 +102,24 @@ export function KitchenPage() {
                     }`}>
                       {isSelected ? '✓ Selected' : 'Tap to cook'}
                     </span>
-                    <button
-                      type="button"
+                    <span
+                      role="button"
+                      tabIndex={0}
                       className="pill-button bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 text-[11px] font-semibold transition-colors"
                       onClick={(event) => {
                         event.stopPropagation();
                         removeIngredient(ingredient.id);
                       }}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          event.stopPropagation();
+                          removeIngredient(ingredient.id);
+                        }
+                      }}
                     >
                       Remove
-                    </button>
+                    </span>
                   </span>
                 </button>
               );

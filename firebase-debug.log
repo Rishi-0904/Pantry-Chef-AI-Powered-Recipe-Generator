@@ -1,0 +1,112 @@
+[debug] [2025-10-18T04:24:29.482Z] ----------------------------------------------------------------------
+[debug] [2025-10-18T04:24:29.500Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\rishi\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --config firebase.json --only auth,firestore,functions
+[debug] [2025-10-18T04:24:29.502Z] CLI Version:   14.20.0
+[debug] [2025-10-18T04:24:29.502Z] Platform:      win32
+[debug] [2025-10-18T04:24:29.503Z] Node Version:  v22.13.1
+[debug] [2025-10-18T04:24:29.503Z] Time:          Sat Oct 18 2025 09:54:29 GMT+0530 (India Standard Time)
+[debug] [2025-10-18T04:24:29.504Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-10-18T04:24:30.470Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-18T04:24:30.471Z] > authorizing via signed-in user (rishijaiswal126@gmail.com)
+[debug] [2025-10-18T04:24:30.818Z] java version "24.0.2" 2025-07-15
+
+[debug] [2025-10-18T04:24:30.819Z] Java(TM) SE Runtime Environment (build 24.0.2+12-54)
+Java HotSpot(TM) 64-Bit Server VM (build 24.0.2+12-54, mixed mode, sharing)
+
+[debug] [2025-10-18T04:24:30.839Z] Parsed Java major version: 24
+[info] i  emulators: Starting emulators: auth, functions, firestore {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, functions, firestore"}}
+[debug] [2025-10-18T04:24:30.874Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-10-18T04:24:30.875Z] [auth] Authentication Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-10-18T04:24:30.875Z] assigned listening specs for emulators {"user":{"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8085}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2025-10-18T04:24:30.888Z] Emulator locator file path: C:\Users\rishi\AppData\Local\Temp\hub-ringtable-cd764.json
+[debug] [2025-10-18T04:24:30.889Z] [hub] writing locator at C:\Users\rishi\AppData\Local\Temp\hub-ringtable-cd764.json
+[debug] [2025-10-18T04:24:30.923Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-10-18T04:24:30.924Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-10-18T04:24:30.924Z] [tasks] Cloud Tasks Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-10-18T04:24:30.924Z] late-assigned ports for functions and eventarc emulators {"user":{"firestore":[{"address":"127.0.0.1","family":"IPv4","port":8085}],"firestore.websocket":[{"address":"127.0.0.1","family":"IPv4","port":9150}],"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"auth":[{"address":"127.0.0.1","family":"IPv4","port":9099}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}],"tasks":[{"address":"127.0.0.1","family":"IPv4","port":9499}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: apphosting, database, hosting, pubsub, storage, dataconnect {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mapphosting, database, hosting, pubsub, storage, dataconnect\u001b[22m"}}
+[debug] [2025-10-18T04:24:30.962Z] defaultcredentials: writing to file C:\Users\rishi\AppData\Roaming\firebase\rishijaiswal126_gmail_com_application_default_credentials.json
+[debug] [2025-10-18T04:24:30.966Z] Setting GAC to C:\Users\rishi\AppData\Roaming\firebase\rishijaiswal126_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\rishi\\AppData\\Roaming\\firebase\\rishijaiswal126_gmail_com_application_default_credentials.json"}}
+[debug] [2025-10-18T04:24:30.968Z] Checked if tokens are valid: true, expires at: 1760762762114
+[debug] [2025-10-18T04:24:30.969Z] Checked if tokens are valid: true, expires at: 1760762762114
+[debug] [2025-10-18T04:24:30.973Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ringtable-cd764/adminSdkConfig [none]
+[debug] [2025-10-18T04:24:31.787Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ringtable-cd764/adminSdkConfig 200
+[debug] [2025-10-18T04:24:31.788Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ringtable-cd764/adminSdkConfig {"projectId":"ringtable-cd764","storageBucket":"ringtable-cd764.firebasestorage.app"}
+[debug] [2025-10-18T04:24:31.834Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2025-10-18T04:24:31.834Z] Ignoring unsupported arg: single_project_mode_error {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: single_project_mode_error"}}
+[debug] [2025-10-18T04:24:31.835Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","C:\\Users\\rishi\\.cache\\firebase\\emulators\\cloud-firestore-emulator-v1.19.8.jar","--host","127.0.0.1","--port",8085,"--websocket_port",9150,"--project_id","ringtable-cd764","--rules","C:\\Users\\rishi\\Desktop\\Pantry-Chef-AI-Powered-Recipe-Generator\\firestore.rules","--single_project_mode",true,"--functions_emulator","127.0.0.1:5001"],"optionalArgs":["port","webchannel_port","host","rules","websocket_port","functions_emulator","seed_from_export","project_id","single_project_mode"],"joinArgs":false,"shell":false,"port":8085} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\rishi\\\\.cache\\\\firebase\\\\emulators\\\\cloud-firestore-emulator-v1.19.8.jar\",\"--host\",\"127.0.0.1\",\"--port\",8085,\"--websocket_port\",9150,\"--project_id\",\"ringtable-cd764\",\"--rules\",\"C:\\\\Users\\\\rishi\\\\Desktop\\\\Pantry-Chef-AI-Powered-Recipe-Generator\\\\firestore.rules\",\"--single_project_mode\",true,\"--functions_emulator\",\"127.0.0.1:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"websocket_port\",\"functions_emulator\",\"seed_from_export\",\"project_id\",\"single_project_mode\"],\"joinArgs\":false,\"shell\":false,\"port\":8085}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[info] +  firestore: Firestore Emulator UI websocket is running on 9150. {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator UI websocket is running on 9150."}}
+[info] i  functions: Watching "C:\Users\rishi\Desktop\Pantry-Chef-AI-Powered-Recipe-Generator\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\rishi\\Desktop\\Pantry-Chef-AI-Powered-Recipe-Generator\\functions\" for Cloud Functions..."}}
+[debug] [2025-10-18T04:24:56.115Z] Validating nodejs source
+[debug] [2025-10-18T04:25:00.347Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "cohere-ai": "^7.19.0",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2025-10-18T04:25:00.347Z] Building nodejs source
+[debug] [2025-10-18T04:25:00.349Z] Failed to find version of module node: reached end of search path C:\Users\rishi\Desktop\Pantry-Chef-AI-Powered-Recipe-Generator\functions\node_modules
+[info] +  functions: Using node@22 from host. 
+[debug] [2025-10-18T04:25:00.358Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-10-18T04:25:00.388Z] Found firebase-functions binary at 'C:\Users\rishi\Desktop\Pantry-Chef-AI-Powered-Recipe-Generator\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8252
+
+[error] TypeError: Cannot read properties of undefined (reading 'key')
+    at Object.<anonymous> (C:\Users\rishi\Desktop\Pantry-Chef-AI-Powered-Recipe-Generator\functions\index.js:13:35)
+    at Module._compile (node:internal/modules/cjs/loader:1562:14)
+    at Object..js (node:internal/modules/cjs/loader:1699:10)
+    at Module.load (node:internal/modules/cjs/loader:1313:32)
+    at Function._load (node:internal/modules/cjs/loader:1123:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1335:12)
+    at require (node:internal/modules/helpers:136:16)
+    at loadModule (C:\Users\rishi\Desktop\Pantry-Chef-AI-Powered-Recipe-Generator\functions\node_modules\firebase-functions\lib\runtime\loader.js:40:16)
+
+[debug] [2025-10-18T04:25:06.783Z] Got response code 400; body Failed to generate manifest from function source: Cannot read properties of undefined (reading 'key')
+[error] !!  functions: Failed to load function definition from source: FirebaseError: Functions codebase could not be analyzed successfully. It may have a syntax or runtime error {"metadata":{"emulator":{"name":"functions"},"message":"Failed to load function definition from source: FirebaseError: Functions codebase could not be analyzed successfully. It may have a syntax or runtime error"}}
+[debug] [2025-10-18T04:25:10.863Z] Could not find VSCode notification endpoint: FetchError: request to http://localhost:40001/vscode/notify failed, reason: . If you are not running the Firebase Data Connect VSCode extension, this is expected and not an issue.
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┬─────────────────────────────────┐
+│ Emulator       │ Host:Port      │ View in Emulator UI             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Authentication │ 127.0.0.1:9099 │ http://127.0.0.1:4000/auth      │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Functions      │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Firestore      │ 127.0.0.1:8085 │ http://127.0.0.1:4000/firestore │
+└────────────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub host: 127.0.0.1 port: 4400
+  Other reserved ports: 4500, 9150
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[warn] !  Received a signed JWT. Auth Emulator does not validate JWTs and IS NOT SECURE {"metadata":{"emulator":{"name":"auth"},"message":"Received a signed JWT. Auth Emulator does not validate JWTs and IS NOT SECURE"}}
+[debug] [2025-10-18T05:18:00.344Z] >>> [apiv2][query] POST http://127.0.0.1:5001/functions/projects/ringtable-cd764/trigger_multicast [none]
+[debug] [2025-10-18T05:18:00.345Z] >>> [apiv2][body] POST http://127.0.0.1:5001/functions/projects/ringtable-cd764/trigger_multicast {"eventId":"72cb1236-2011-4836-af4b-f9f37bb859f1","eventType":"providers/firebase.auth/eventTypes/user.create","resource":{"name":"projects/ringtable-cd764","service":"firebaseauth.googleapis.com"},"params":{},"timestamp":"2025-10-18T05:18:00.339Z","data":{"uid":"qKEZfpZMNc73huT7esZaiv313DKi","email":"rishijaiswal126@gmail.com","emailVerified":true,"metadata":{"creationTime":"2025-10-18T05:18:00.329Z","lastSignInTime":"2025-10-18T05:18:00.329Z"},"customClaims":{},"providerData":[{"rawId":"7423382444793817302614208608923999683362","providerId":"google.com","email":"rishijaiswal126@gmail.com","federatedId":"7423382444793817302614208608923999683362"}]}}
+[debug] [2025-10-18T05:18:00.416Z] <<< [apiv2][status] POST http://127.0.0.1:5001/functions/projects/ringtable-cd764/trigger_multicast 200
+[debug] [2025-10-18T05:18:00.418Z] <<< [apiv2][body] POST http://127.0.0.1:5001/functions/projects/ringtable-cd764/trigger_multicast {"status":"multicast_acknowledged"}
