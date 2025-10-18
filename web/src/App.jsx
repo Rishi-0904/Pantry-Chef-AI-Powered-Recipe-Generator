@@ -13,60 +13,62 @@ import { NotificationProvider } from './components/ui/NotificationSystem';
 
 function App() {
   return (
-    <Routes>
-      <Route element={<AppLayout />}>
-        <Route index element={<HomePage />} />
-        <Route
-          path="dashboard"
-          element={
-            <ProtectedRoute>
-              <DashboardPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="pantry"
-          element={
-            <ProtectedRoute>
-              <PantryPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="kitchen"
-          element={
-            <ProtectedRoute>
-              <KitchenPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="planner"
-          element={
-            <ProtectedRoute>
-              <PlannerPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="community"
-          element={
-            <ProtectedRoute>
-              <CommunityPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="learn"
-          element={
-            <ProtectedRoute>
-              <LearnPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-      <Route path="/login" element={<LoginPage />} />
-    </Routes>
+    <NotificationProvider>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route index element={<HomePage />} />
+          <Route
+            path="dashboard"
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="pantry"
+            element={
+              <ProtectedRoute>
+                <PantryPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="kitchen"
+            element={
+              <ProtectedRoute>
+                <KitchenPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="planner"
+            element={
+              <ProtectedRoute>
+                <PlannerPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="community"
+            element={
+              <ProtectedRoute>
+                <CommunityPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="learn"
+            element={
+              <ProtectedRoute>
+                <LearnPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </NotificationProvider>
   );
 }
 

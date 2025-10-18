@@ -5,6 +5,7 @@ import { AnimatedIngredientCard } from '../components/ingredients/AnimatedIngred
 import { RemoveConfirmationModal } from '../components/ingredients/RemoveConfirmationModal';
 import { useRecipeContext } from '../contexts/RecipeContext';
 import { useIngredientImages } from '../hooks/useIngredientImages';
+import { useNotify } from '../components/ui/NotificationSystem';
 
 export function PantryPage() {
   const {
@@ -21,9 +22,9 @@ export function PantryPage() {
     generateRecipes
   } = useRecipeContext();
   const navigate = useNavigate();
+  const notify = useNotify();
   const [isFridgeOpen, setIsFridgeOpen] = useState(false);
   const [removingItem, setRemovingItem] = useState(null);
-  const [toastMessage, setToastMessage] = useState('');
 
   // Use the hook for image fetching
   const allIngredientNames = [...pantryItems.map(i => i.name), ...catalogItems.map(i => i.name), ...cart.map(i => i.name)];
@@ -35,9 +36,9 @@ export function PantryPage() {
   }, []);
 
   const handleAddToCart = (id) => {
+    const item = pantryItems.find(p => p.id === id);
     addToCart(id);
-    setToastMessage('Added to cart!');
-    setTimeout(() => setToastMessage(''), 2000);
+    notify.success(`${item?.name || 'Item'} added to cart! 🛒`, 'Added to Cart');
   };
 
   const handleRemoveClick = (item) => {
@@ -51,18 +52,17 @@ export function PantryPage() {
 
   const handleProceedToKitchen = () => {
     if (!cart.length) {
-      setToastMessage('Add items to your cart before proceeding.');
-      setTimeout(() => setToastMessage(''), 2000);
+      notify.warning('Add items to your cart before proceeding to the kitchen.', 'Cart Empty');
       return;
     }
 
     const stagedItems = syncCartToPantry();
     if (!stagedItems.length) {
-      setToastMessage('Unable to stage cart items. Try again.');
-      setTimeout(() => setToastMessage(''), 2000);
+      notify.error('Unable to stage cart items. Please try again.', 'Error');
       return;
     }
 
+    notify.success('Cart items moved to kitchen! Ready to cook! 🍳', 'Kitchen Ready');
     clearCart();
     navigate('/kitchen');
   };
@@ -84,11 +84,6 @@ export function PantryPage() {
         </div>
       </div>
 
-      {toastMessage && (
-        <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg">
-          {toastMessage}
-        </div>
-      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left: Product Grid */}

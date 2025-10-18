@@ -131,7 +131,6 @@ const buildWeeklyPlan = (recipes) => {
   return plan;
 };
 
-
 // --- Recipe Saving Function ---
 exports.saveRecipe = onCall(async (request) => {
   // --- Authentication Check ---
@@ -275,4 +274,3 @@ exports.generateRecipes = onCall(async (request) => {
     return { recipes, weeklyPlan };
   }
 });
-
